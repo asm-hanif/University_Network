@@ -1,0 +1,34 @@
+enable
+configure terminal
+hostname Switch_A
+vlan 10
+ name Sales
+vlan 20
+ name Engineering
+vlan 30
+ name HR
+interface GigabitEthernet0/1
+ switchport mode trunk
+ switchport trunk allowed vlan 10,20,30
+ no shutdown
+interface GigabitEthernet0/2
+ switchport mode trunk
+ switchport trunk allowed vlan 10,20,30
+ no shutdown
+interface FastEthernet0/1
+ switchport mode access
+ switchport access vlan 10
+ spanning-tree portfast
+ no shutdown
+interface FastEthernet0/2
+ switchport mode access
+ switchport access vlan 20
+ spanning-tree portfast
+ no shutdown
+interface FastEthernet0/3
+ switchport mode access
+ switchport access vlan 30
+ spanning-tree portfast
+ no shutdown
+end
+write memory
