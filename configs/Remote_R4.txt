@@ -1,0 +1,32 @@
+enable
+configure terminal
+hostname R4
+interface Serial0/0/0
+ ip address 202.202.202.2 255.255.255.0
+ no shutdown
+interface GigabitEthernet0/0
+ ip address 203.203.203.1 255.255.255.0
+ no shutdown
+interface GigabitEthernet0/1
+ no ip address
+ no shutdown
+interface GigabitEthernet0/1.10
+ encapsulation dot1Q 10
+ ip address 10.10.10.1 255.255.255.0
+interface GigabitEthernet0/1.20
+ encapsulation dot1Q 20
+ ip address 10.10.20.1 255.255.255.0
+interface GigabitEthernet0/1.30
+ encapsulation dot1Q 30
+ ip address 10.10.30.1 255.255.255.0
+ip route 0.0.0.0 0.0.0.0 203.203.203.2
+!
+access-list 101 remark Restrict PC_C_HR to Admin PC and Web Server
+access-list 101 permit ip host 10.10.30.20 host 192.168.10.10
+access-list 101 permit ip host 10.10.30.20 host 192.168.10.200
+access-list 101 deny ip host 10.10.30.20 192.168.0.0 0.0.255.255
+access-list 101 permit ip any any
+interface GigabitEthernet0/0
+ ip access-group 101 out
+end
+write memory
