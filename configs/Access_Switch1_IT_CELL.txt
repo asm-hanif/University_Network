@@ -1,0 +1,27 @@
+enable
+configure terminal
+hostname Access_Switch1
+vlan 10
+ name IT_CELL
+interface fastEthernet0/2
+ switchport mode access
+ switchport access vlan 10
+ spanning-tree portfast
+ no shutdown
+interface fastEthernet0/6
+ switchport mode access
+ switchport access vlan 10
+ spanning-tree portfast
+ no shutdown
+interface fastEthernet0/9
+ switchport mode access
+ switchport access vlan 10
+ spanning-tree portfast
+ no shutdown
+interface fastEthernet0/1
+ switchport mode trunk
+ switchport trunk native vlan 100
+ switchport trunk allowed vlan 10,20,30,60,100
+ no shutdown
+end
+write memory
